@@ -24,12 +24,13 @@ const queryClient = new QueryClient({
 
 const App = () => {
   const [user, setUser] = useState(null);
+  console.log("🚀 ~ file: App.jsx:27 ~ App ~ user:", user);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user);
+      setUser(user.data);
       videoService.setToken(user.data.token);
     }
   }, []);
@@ -60,7 +61,7 @@ const App = () => {
             />
             <Route path="/populates" element={<Populate />} />
           </Routes>
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </QueryClientProvider>
       </BrowserRouter>
     </div>

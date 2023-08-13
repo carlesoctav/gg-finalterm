@@ -52,17 +52,22 @@ const postCommentOfVideo = async ({ queryKey }) => {
       Authorization: token,
     },
   };
-
-  const request = await axios.post(
-    `http://localhost:3001/api/comments`,
-    newComment,
-    config
-  );
-
-  return {
-    status: request.status,
-    data: request.data,
-  };
+  try {
+    const request = await axios.post(
+      `http://localhost:3001/api/comments`,
+      newComment,
+      config
+    );
+    return {
+      status: request.status,
+      data: request.data,
+    };
+  } catch (error) {
+    return {
+      status: error.response.status,
+      data: error.response.data,
+    };
+  }
 };
 
 const videoService = {

@@ -3,6 +3,7 @@ import loginService from "../../../services/login";
 import { useNavigate } from "react-router-dom";
 import videoService from "../../../services/video";
 import Navbar from "../../Navbar";
+import { Info, Success, Error, Warning } from "../../Notification";
 
 const Login = ({ user, setUser }) => {
   console.log("🚀 ~ file: Login.jsx:6 ~ Login ~ user:", user);
@@ -12,22 +13,44 @@ const Login = ({ user, setUser }) => {
     password: "",
   });
 
+  const [notification, setNotification] = useState({
+    message: null,
+    type: null,
+  });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("🚀 ~ file: Login.jsx:14 ~ handleSubmit ~ login:", login);
     const response = await loginService.login(login);
+    console.log("🚀 ~ file: Login.jsx:27 ~ handleSubmit ~ response:", response);
 
     if (response.status === 200) {
       window.localStorage.setItem("loggedUser", JSON.stringify(response));
-      setUser(response.data);
-      videoService.setToken(response.data.token);
-      navigate("/");
+      setNotification({
+        message: `Welcome Back ${response.data.username}`,
+        type: "success",
+      });
+
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+
+        setUser(response.data);
+        videoService.setToken(response.data.token);
+      }, 1000);
     }
 
     if (response.status === 401) {
       setLogin({ username: "", password: "" });
+      setNotification({
+        message: "Invalid username or password",
+        type: "error",
+      });
+
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 5000);
     }
   };
   const handleLoginChange = (e) => {
@@ -79,6 +102,13 @@ const Login = ({ user, setUser }) => {
           </div>
         </div>
       </form>
+      {notification.type === "success" && (
+        <Success message={notification.message} />
+      )}
+
+      {notification.type === "error" && (
+        <Error message={notification.message} />
+      )}
     </div>
   );
 };

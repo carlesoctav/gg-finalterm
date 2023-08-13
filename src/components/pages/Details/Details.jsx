@@ -3,79 +3,12 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import videoService from "../../../services/video";
 import Navbar from "../../Navbar";
-
-const CommentForm = ({ user }) => {
-  const { id } = useParams();
-
-  const [comment, setComment] = useState("");
-
-  if (!user) {
-    return <button type="submit">you need to login</button>;
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    console.log("🚀 ~ file: Details.jsx:20 ~ handleSubmit ~ id:", id);
-    console.log("🚀 ~ file: Details.jsx:20 ~ handleSubmit ~ comment:", comment);
-    const request = await videoService.postCommentOfVideo({
-      queryKey: ["details", id, comment],
-    });
-    console.log("🚀 ~ file: Details.jsx:25 ~ handleSubmit ~ request:", request);
-    if (request.status === 201) {
-      setComment("");
-    }
-  };
-
-  return (
-    <div className="comment-form">
-      <h2>Leave a comment</h2>
-      <h3>{user.username}</h3>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={(e) => setComment(e.target.value)}
-          value={comment}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-};
-
-const CommentContainer = ({ comments }) => {
-  return (
-    <div className="comment-container">
-      <h2>Comments</h2>
-      {comments.map((comment) => (
-        <div className="comment" key={comment.id}>
-          <p>{comment.comment}</p>
-          <p>{comment.username}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const ProductCard = ({ product }) => {
-  return (
-    <div className="card card-compact w-48 bg-base-100 shadow-xl mb-4">
-      <a href={product.productLink} target="_blank" rel="noreferrer">
-        <figure>
-          <img src={product.productImage} alt={product.productName} />
-        </figure>
-        <div className="card-body">
-          <p>{product.productName}</p>
-          <p>{product.productPrice}</p>
-        </div>
-      </a>
-    </div>
-  );
-};
+import ProductCard from "./ProductCard";
+import CommentCard from "./CommentCard";
+import CommentForm from "./CommentForm";
 
 const Details = ({ user, setUser }) => {
   const { id } = useParams();
-
   const { isLoading, error, data } = useQuery(["details", id], async () => {
     const [commentData, productData] = await Promise.all([
       videoService.getCommentOfVideo({ queryKey: ["details", id] }),
@@ -87,7 +20,7 @@ const Details = ({ user, setUser }) => {
   console.log("🚀 ~ file: Details.jsx:32 ~ Details ~ data:", data);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <span className="loading loading-ring loading-lg"></span>;
   }
 
   if (error) {
@@ -110,14 +43,19 @@ const Details = ({ user, setUser }) => {
     <>
       <Navbar user={user} setUser={setUser} />
       <div className="flex space-between">
-        <div className="sidebar w-1/4 p-4 ">
-          <ul className="menu relative overflow-y-scroll">
-            {product.map((product) => (
-              <li key={product.id}>
-                <ProductCard product={product} />
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-col">
+          <div className="p-4">
+            <h1 className="text-xl font-bold text-center">Products</h1>
+          </div>
+          <div className="sticky max-h-screen overflow-y-scroll">
+            <ul className="menu">
+              {product.map((product) => (
+                <li key={product.id}>
+                  <ProductCard product={product} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="flex-grow flex flex-row items-center justify-center">
@@ -132,11 +70,20 @@ const Details = ({ user, setUser }) => {
           </div>
         </div>
 
-        <div className="comment sidebar w-1/4 p-4 scrollable">
-          <div className="comments-sidebar overflow-scroll">
-            <CommentContainer comments={comment} />
-            <CommentForm user={user} />
+        <div className=" w-1/4 p-4">
+          <div>
+            <h1 className="text-xl font-bold text-center">Comments</h1>
           </div>
+          <div className="sticky overflow-y-scroll max-h-screen p-4">
+            <ul>
+              {comment.map((comment) => (
+                <li key={comment.id}>
+                  <CommentCard comment={comment} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <CommentForm user={user} />
         </div>
       </div>
     </>

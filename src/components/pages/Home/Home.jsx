@@ -27,7 +27,7 @@ const VideoList = () => {
   } = useQuery(["videos"], videoService.getAllVideos);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <span className="loading loading-ring loading-lg"></span>;
   }
 
   if (error) {
