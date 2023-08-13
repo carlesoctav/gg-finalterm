@@ -1,0 +1,54 @@
+
+/* CSS for Navbar */
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-flex-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-flex-item {
+    margin: 0 10px;
+}
+
+.logo a {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    color: #f2f2f2;
+}
+
+.navbar-flex-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.navbar-flex-item a:hover {
+    color: #f2f2f2;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar-flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-flex-item {
+        margin: 10px 0;
+    }
+}
