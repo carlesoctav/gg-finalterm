@@ -20,7 +20,11 @@ const Details = ({ user, setUser }) => {
   console.log("🚀 ~ file: Details.jsx:32 ~ Details ~ data:", data);
 
   if (isLoading) {
-    return <span className="loading loading-ring loading-lg"></span>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-ring loading-lg justify-items-center"></span>
+      </div>
+    );
   }
 
   if (error) {
@@ -65,7 +69,7 @@ const Details = ({ user, setUser }) => {
               height="315"
               src={embed}
               title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"
             />
           </div>
         </div>

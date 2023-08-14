@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import videoService from "../../../services/video";
-import "./home.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../Navbar";
 
@@ -25,9 +24,14 @@ const VideoList = () => {
     isLoading,
     error,
   } = useQuery(["videos"], videoService.getAllVideos);
+  console.log("🚀 ~ file: Home.jsx:28 ~ VideoList ~ error:", error);
 
   if (isLoading) {
-    return <span className="loading loading-ring loading-lg"></span>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-ring loading-lg justify-items-center"></span>
+      </div>
+    );
   }
 
   if (error) {

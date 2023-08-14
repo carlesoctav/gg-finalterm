@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import videoService from "../../../services/video";
 import { Info, Success, Error, Warning } from "../../Notification";
+import { Link } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const CommentForm = ({ user }) => {
   const { id } = useParams();
@@ -11,10 +13,21 @@ const CommentForm = ({ user }) => {
     type: null,
   });
 
+  const queryClient = useQueryClient();
+
   const [comment, setComment] = useState("");
+  const postComment = useMutation(videoService.postCommentOfVideo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["details", id]);
+    },
+  });
 
   if (!user) {
-    return <button className="btn btn-wide">login to comment</button>;
+    return (
+      <Link to="/login">
+        <button className="btn btn-wide">login to comment</button>;
+      </Link>
+    );
   }
 
   const handleSubmit = async (e) => {
@@ -22,7 +35,13 @@ const CommentForm = ({ user }) => {
 
     console.log("🚀 ~ file: Details.jsx:20 ~ handleSubmit ~ id:", id);
     console.log("🚀 ~ file: Details.jsx:20 ~ handleSubmit ~ comment:", comment);
-    const request = await videoService.postCommentOfVideo({
+
+    setNotification({
+      message: "Posting comment...",
+      type: "info",
+    });
+
+    const request = await postComment.mutateAsync({
       queryKey: ["details", id, comment],
     });
     console.log(
@@ -40,7 +59,7 @@ const CommentForm = ({ user }) => {
 
       setTimeout(() => {
         setNotification({ message: null, type: null });
-      }, 5000);
+      }, 1000);
     }
 
     if (request.status === 400) {
@@ -78,6 +97,11 @@ const CommentForm = ({ user }) => {
       {notification.type === "error" && (
         <Error message={notification.message} />
       )}
+
+      {notification.type === "warning" && (
+        <Warning message={notification.message} />
+      )}
+      {notification.type === "info" && <Info message={notification.message} />}
     </div>
   );
 };

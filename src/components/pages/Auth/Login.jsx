@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import videoService from "../../../services/video";
 import Navbar from "../../Navbar";
 import { Info, Success, Error, Warning } from "../../Notification";
+import { Link } from "react-router-dom";
 
 const Login = ({ user, setUser }) => {
   console.log("🚀 ~ file: Login.jsx:6 ~ Login ~ user:", user);
@@ -39,6 +40,17 @@ const Login = ({ user, setUser }) => {
         setUser(response.data);
         videoService.setToken(response.data.token);
       }, 1000);
+    }
+
+    if (response.status === 400) {
+      setNotification({
+        message: response.data.error,
+        type: "error",
+      });
+
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 5000);
     }
 
     if (response.status === 401) {
@@ -90,9 +102,9 @@ const Login = ({ user, setUser }) => {
                   className="input input-bordered"
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <Link to="/signup" className="label-text-alt link link-hover">
                     don't have an account? sign up
-                  </a>
+                  </Link>
                 </label>
               </div>
               <div className="form-control mt-6">
@@ -102,12 +114,17 @@ const Login = ({ user, setUser }) => {
           </div>
         </div>
       </form>
+
       {notification.type === "success" && (
         <Success message={notification.message} />
       )}
 
       {notification.type === "error" && (
         <Error message={notification.message} />
+      )}
+      {notification.type === "info" && <Info message={notification.message} />}
+      {notification.type === "warning" && (
+        <Warning message={notification.message} />
       )}
     </div>
   );

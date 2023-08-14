@@ -10,6 +10,7 @@ import Populate from "./components/pages/Populate/Populate";
 import videoService from "./services/video";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./style.css";
+import Signup from "./components/pages/Auth/Signup";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,9 +60,22 @@ const App = () => {
               path="/logout"
               element={<Logout user={user} setUser={setUser} />}
             />
-            <Route path="/populates" element={<Populate />} />
+            <Route
+              path="/populate"
+              element={<Populate user={user} setUser={setUser} />}
+            />
+            <Route
+              path="/signup"
+              element={
+                user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Signup user={user} setUser={setUser} />
+                )
+              }
+            />
           </Routes>
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </BrowserRouter>
     </div>

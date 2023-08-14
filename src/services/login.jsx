@@ -18,8 +18,18 @@ const login = async (credentials) => {
 };
 
 const signup = async (credentials) => {
-  const request = await axios.post(baseUrl, credentials);
-  return request.data;
+  try {
+    const request = await axios.post(baseUrlSignup, credentials);
+    return {
+      status: request.status,
+      data: request.data,
+    };
+  } catch (error) {
+    return {
+      status: error.response.status,
+      data: error.response.data,
+    };
+  }
 };
 
 const loginService = {
