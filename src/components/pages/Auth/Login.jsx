@@ -7,8 +7,6 @@ import { Info, Success, Error, Warning } from "../../Notification";
 import { Link } from "react-router-dom";
 
 const Login = ({ user, setUser }) => {
-  console.log("🚀 ~ file: Login.jsx:6 ~ Login ~ user:", user);
-
   const [login, setLogin] = useState({
     username: "",
     password: "",
@@ -23,9 +21,7 @@ const Login = ({ user, setUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("🚀 ~ file: Login.jsx:14 ~ handleSubmit ~ login:", login);
     const response = await loginService.login(login);
-    console.log("🚀 ~ file: Login.jsx:27 ~ handleSubmit ~ response:", response);
 
     if (response.status === 200) {
       window.localStorage.setItem("loggedUser", JSON.stringify(response));

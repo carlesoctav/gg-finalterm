@@ -1,12 +1,11 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/api/populates";
+const baseUrl = "/api/populate";
 
 const populate = async (videoId) => {
   const config = {
     headers: {},
   };
 
-  console.log("🚀 ~ file: populate.jsx:5 ~ populate ~ videoId:", videoId);
   const body = {
     videoId: videoId,
   };

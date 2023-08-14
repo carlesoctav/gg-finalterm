@@ -32,10 +32,6 @@ const CommentForm = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("🚀 ~ file: Details.jsx:20 ~ handleSubmit ~ id:", id);
-    console.log("🚀 ~ file: Details.jsx:20 ~ handleSubmit ~ comment:", comment);
-
     setNotification({
       message: "Posting comment...",
       type: "info",
@@ -44,11 +40,6 @@ const CommentForm = ({ user }) => {
     const request = await postComment.mutateAsync({
       queryKey: ["details", id, comment],
     });
-    console.log(
-      "🚀 ~ file: CommentForm.jsx:22 ~ handleSubmit ~ request:",
-      request
-    );
-
     if (request.status === 201) {
       setComment("");
 

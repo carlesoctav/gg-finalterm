@@ -1,6 +1,6 @@
 import axios from "axios";
-const baseUrlLogin = "http://localhost:3001/api/login";
-const baseUrlSignup = "http://localhost:3001/api/users";
+const baseUrlLogin = "/api/login";
+const baseUrlSignup = "/api/signup";
 
 const login = async (credentials) => {
   try {

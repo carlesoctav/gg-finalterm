@@ -31,10 +31,6 @@ const Populate = ({ user, setUser }) => {
     });
 
     const request = await newVideo.mutateAsync(videoId);
-    console.log(
-      "🚀 ~ file: Populate.jsx:34 ~ handlesubmit ~ request:",
-      request
-    );
     if (request.status === 201) {
       setVideoId("");
       setNotification({

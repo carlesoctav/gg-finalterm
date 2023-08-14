@@ -11,7 +11,6 @@ const Signup = ({ user, setUser }) => {
     username: "",
     password: "",
   });
-  console.log("🚀 ~ file: Signup.jsx:14 ~ Signup ~ signup:", signup);
 
   const [notification, setNotification] = useState({
     message: null,
@@ -23,10 +22,6 @@ const Signup = ({ user, setUser }) => {
     username: null,
     password: null,
   });
-  console.log(
-    "🚀 ~ file: Signup.jsx:55 ~ Signup ~ signupErrors:",
-    signupErrors
-  );
 
   const navigate = useNavigate();
 
@@ -56,6 +51,11 @@ const Signup = ({ user, setUser }) => {
     if (signup.username.includes(" ")) {
       newError.username = "Username cannot contain spaces";
     }
+
+    if (signup.password.includes(" ")) {
+      newError.password = "Password cannot contain spaces";
+    }
+
     if (signup.password.length < 8) {
       newError.password = "Password must be at least 8 characters";
     }
@@ -72,10 +72,6 @@ const Signup = ({ user, setUser }) => {
       });
 
       const response = await loginService.signup(signup);
-      console.log(
-        "🚀 ~ file: Signup.jsx:75 ~ handleSignup ~ response:",
-        response
-      );
 
       if (response.status === 201) {
         setNotification({
