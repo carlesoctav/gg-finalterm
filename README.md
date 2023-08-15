@@ -45,7 +45,7 @@ Before running the frontend, you need to run the backend first. You can find the
 1. clone this repository
 
 ```bash
-git clone https://github.com/carlesoctav/finalterm-frontend-deploy
+git clone https://github.com/carlesoctav/gg-finalterm.git
 ```
 
 2. run `npm install`
