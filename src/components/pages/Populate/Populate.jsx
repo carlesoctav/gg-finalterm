@@ -29,7 +29,6 @@ const Populate = ({ user, setUser }) => {
       message: "Adding video to database, it will take a while",
       type: "info",
     });
-
     const request = await newVideo.mutateAsync(videoId);
     if (request.status === 201) {
       setVideoId("");

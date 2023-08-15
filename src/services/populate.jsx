@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseUrl = "/api/populate";
+const backend = import.meta.env.VITE_backend;
+const baseUrl = `${backend}/api/populates`;
 
 const populate = async (videoId) => {
   const config = {

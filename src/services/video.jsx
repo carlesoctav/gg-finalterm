@@ -1,26 +1,28 @@
 import axios from "axios";
 let token = null;
 
+const backend = import.meta.env.VITE_backend;
+
 const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
 };
 
 const getAllVideos = async ({ queryKey }) => {
-  const request = await axios.get("/api/videos");
+  const request = await axios.get(`${backend}/api/videos`);
 
   return request.data;
 };
 
 const getProductOfVideo = async ({ queryKey }) => {
   const id = queryKey[1];
-  const request = await axios.get(`/api/videos/${id}/products`);
+  const request = await axios.get(`${backend}/api/videos/${id}/products`);
 
   return request.data;
 };
 
 const getCommentOfVideo = async ({ queryKey }) => {
   const id = queryKey[1];
-  const request = await axios.get(`api/videos/${id}/comments`);
+  const request = await axios.get(`${backend}/api/videos/${id}/comments`);
 
   return request.data;
 };
@@ -39,7 +41,11 @@ const postCommentOfVideo = async ({ queryKey }) => {
     },
   };
   try {
-    const request = await axios.post(`/api/comments`, newComment, config);
+    const request = await axios.post(
+      `${backend}/api/comments`,
+      newComment,
+      config
+    );
     return {
       status: request.status,
       data: request.data,

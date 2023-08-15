@@ -1,6 +1,8 @@
 import axios from "axios";
-const baseUrlLogin = "/api/login";
-const baseUrlSignup = "/api/signup";
+
+const backend = import.meta.env.VITE_backend;
+const baseUrlLogin = `${backend}/api/login`;
+const baseUrlSignup = `${backend}/api/users`;
 
 const login = async (credentials) => {
   try {
