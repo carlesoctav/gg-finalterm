@@ -54,6 +54,8 @@ git clone https://github.com/carlesoctav/finalterm-frontend-deploy
 
 ## Deployment Repository
 
+check [deploy-env branch](https://github.com/carlesoctav/gg-finalterm/tree/deploy-env) for the deployment-ready repository
+
 ## Some caveat in deployment
 
 1. Since it's a client-side rendering, you will get a 404 error if you refresh the page. Later, I will add server-side rendering to fix this.
