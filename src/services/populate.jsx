@@ -5,8 +5,6 @@ const populate = async (videoId) => {
   const config = {
     headers: {},
   };
-
-  console.log("🚀 ~ file: populate.jsx:5 ~ populate ~ videoId:", videoId);
   const body = {
     videoId: videoId,
   };

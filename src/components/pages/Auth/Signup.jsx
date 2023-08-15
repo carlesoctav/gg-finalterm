@@ -11,8 +11,6 @@ const Signup = ({ user, setUser }) => {
     username: "",
     password: "",
   });
-  console.log("🚀 ~ file: Signup.jsx:14 ~ Signup ~ signup:", signup);
-
   const [notification, setNotification] = useState({
     message: null,
     type: null,
@@ -23,11 +21,6 @@ const Signup = ({ user, setUser }) => {
     username: null,
     password: null,
   });
-  console.log(
-    "🚀 ~ file: Signup.jsx:55 ~ Signup ~ signupErrors:",
-    signupErrors
-  );
-
   const navigate = useNavigate();
 
   const handleSignupChange = async (e) => {
@@ -72,11 +65,6 @@ const Signup = ({ user, setUser }) => {
       });
 
       const response = await loginService.signup(signup);
-      console.log(
-        "🚀 ~ file: Signup.jsx:75 ~ handleSignup ~ response:",
-        response
-      );
-
       if (response.status === 201) {
         setNotification({
           message: `Welcome ${response.data.name}, use your new credentials to login`,

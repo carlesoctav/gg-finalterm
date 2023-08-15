@@ -4,7 +4,6 @@ let token = null;
 
 const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
-  console.log("🚀 ~ file: video.jsx:8 ~ setToken ~ token:", token);
 };
 
 const getAllVideos = async ({ queryKey }) => {
@@ -35,13 +34,6 @@ const getCommentOfVideo = async ({ queryKey }) => {
 const postCommentOfVideo = async ({ queryKey }) => {
   const id = queryKey[1];
   const comment = queryKey[2];
-  console.log(
-    "🚀 ~ file: video.jsx:37 ~ postCommentOfVideo ~ comment:",
-    comment
-  );
-
-  console.log("🚀 ~ file: video.jsx:36 ~ postCommentOfVideo ~ id:", id);
-  console.log("🚀 ~ file: video.jsx:4 ~ token:", token);
 
   const newComment = {
     videoId: id,

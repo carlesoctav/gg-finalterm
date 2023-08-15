@@ -16,9 +16,6 @@ const Details = ({ user, setUser }) => {
     ]);
     return { commentData, productData };
   });
-
-  console.log("🚀 ~ file: Details.jsx:32 ~ Details ~ data:", data);
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -34,15 +31,9 @@ const Details = ({ user, setUser }) => {
   const { commentData, productData } = data;
 
   const product = productData;
-  console.log("🚀 ~ file: Details.jsx:44 ~ Details ~ product:", product);
   const comment = commentData;
-  console.log("🚀 ~ file: Details.jsx:46 ~ Details ~ comment:", comment);
-
   const embed =
     "https://" + product[0].productVideo.replace("watch?v=", "embed/");
-
-  console.log("🚀 ~ file: Details.jsx:105 ~ Details ~ embed:", embed);
-
   return (
     <>
       <Navbar user={user} setUser={setUser} />

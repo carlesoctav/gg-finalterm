@@ -24,8 +24,6 @@ const VideoList = () => {
     isLoading,
     error,
   } = useQuery(["videos"], videoService.getAllVideos);
-  console.log("🚀 ~ file: Home.jsx:28 ~ VideoList ~ error:", error);
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
