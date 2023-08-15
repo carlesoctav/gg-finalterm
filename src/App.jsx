@@ -25,8 +25,6 @@ const queryClient = new QueryClient({
 
 const App = () => {
   const [user, setUser] = useState(null);
-  console.log("🚀 ~ file: App.jsx:27 ~ App ~ user:", user);
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
